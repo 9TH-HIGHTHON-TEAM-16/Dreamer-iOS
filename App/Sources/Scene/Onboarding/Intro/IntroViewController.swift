@@ -19,13 +19,13 @@ final class IntroViewController: UIViewController {
     private let appTextLabel = UILabel().then {
         $0.text = "드러머"
         $0.textColor = .mainColor
-        $0.font = .pretendard(.semibold(size: 44))
+        $0.font = AppFontFamily.Pretendard.semiBold.font(size: 44)
     }
     
     private let appExplainTextLabel = UILabel().then {
         $0.text = "꿈을 꾸는 사람들을 위해"
         $0.textColor = .gray5
-        $0.font = .pretendard(.medium(size: 24))
+        $0.font = AppFontFamily.Pretendard.medium.font(size: 24)
     }
     
     override func viewDidLoad() {
