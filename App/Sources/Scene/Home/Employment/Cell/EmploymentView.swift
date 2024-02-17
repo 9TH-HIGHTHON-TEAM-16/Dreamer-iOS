@@ -15,18 +15,17 @@ final class EmploymentView: UIView {
         $0.font = AppFontFamily.Pretendard.bold.font(size: 20)
     }
     
-    private let flowLayout = UICollectionViewFlowLayout().then {
-        $0.scrollDirection = .horizontal
-        $0.itemSize = CGSize(width: 147, height: 163)
-    }
-    
-    private lazy var employmentCollectionView = UICollectionView().then {
-        $0.collectionViewLayout = flowLayout
-        $0.register(
+    let employmentCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 147, height: 163)
+        layout.scrollDirection = .horizontal
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(
             EmploymentCollectionViewCell.self,
             forCellWithReuseIdentifier: EmploymentCollectionViewCell.cellIdentifier
         )
-    }
+        return collectionView
+    }()
     
     init(title: String) {
         self.cellTitle.text = title
@@ -43,8 +42,8 @@ final class EmploymentView: UIView {
 extension EmploymentView {
     private func addSubviews() {
         [
-            cellTitle
-//            employmentCollectionView
+            cellTitle,
+            employmentCollectionView
         ].forEach {
             addSubview($0)
         }
@@ -55,9 +54,9 @@ extension EmploymentView {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview().offset(16)
         }
-//        employmentCollectionView.snp.makeConstraints {
-//            $0.top.equalTo(cellTitle.snp.bottom).offset(16)
-//            $0.leading.trailing.bottom.equalToSuperview()
-//        }
+        employmentCollectionView.snp.makeConstraints {
+            $0.top.equalTo(cellTitle.snp.bottom).offset(16)
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
     }
 }

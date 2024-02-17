@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  RecommendViewController.swift
 //  App
 //
 //  Created by 선민재 on 2/17/24.
@@ -12,32 +12,14 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 
-enum ViewType {
-    case employment
-    case recommend
-    case certificate
-    case policy
-}
-
-final class HomeViewController: UIViewController {
+final class RecommendViewController: UIViewController {
     private let navigationBar = HomeNavigationBar(navigationBarTitle: "채용")
     private var viewModel: HomeViewModel
     private var disposeBag = DisposeBag()
-    
-    private let filterCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 163, height: 32)
-        layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.register(
-            EmploymentCollectionViewCell.self,
-            forCellWithReuseIdentifier: EmploymentCollectionViewCell.cellIdentifier
-        )
-        return collectionView
-    }()
 
-    private let firstView = EmploymentView(title: "신입도 지원이 가능해요")
-    private let secondView = EmploymentView(title: "자격증 없어도 괜찮아요")
+    private let firstView = EmploymentView(title: "성향에 딱 맞는 직업이에요.")
+    private let secondView = EmploymentView(title: "비슷한 나이대의 지원자들이 많이 지원했어요.")
+    private let thirdView = EmploymentView(title: "누구나 입문하기 쉬워요.")
     
     init(with viewModel: HomeViewModel) {
         self.viewModel = viewModel
@@ -52,14 +34,12 @@ final class HomeViewController: UIViewController {
         self.navigationController?.navigationBar.isHidden = true
         super.viewDidLoad()
         self.bindViewModel()
-        self.filterCollectionView.dataSource = self
-        self.viewModel.requestJobList(year: 1, role: "개발자", location: "서울특별시")
         self.addSubviews()
         self.setLayout()
     }
 }
 
-extension HomeViewController {
+extension RecommendViewController {
     private func bindViewModel() {
         let input = HomeViewModel.Input()
         
@@ -82,40 +62,10 @@ extension HomeViewController {
             }
             .disposed(by: disposeBag)
         
-        output.jobList
-            .bind(to: secondView.employmentCollectionView.rx.items(
-                cellIdentifier: EmploymentCollectionViewCell.cellIdentifier,
-                cellType: EmploymentCollectionViewCell.self
-            )) { (ip, item, cell)  in
-                let url = URL(string: item.urls[ip])
-                
-                cell.employmentImage.kf.setImage(
-                    with: url,
-                    placeholder: UIImage(named: "DummyImage")
-                )
-                
-                cell.employmentTitle.text = item.title
-                cell.employmentSubTitle.text = item.content
-            }
-            .disposed(by: disposeBag)
-        
     }
 }
 
-extension HomeViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeFilterCell.cellIdentifier, for: indexPath) as? HomeFilterCell else { return UICollectionViewCell() }
-        cell.filterTitle.text = "지역"
-        cell.filterValue.text = "서울특별시"
-        return cell
-    }
-}
-
-extension HomeViewController {
+extension RecommendViewController {
     private func addSubviews() {
         [
             navigationBar,
@@ -146,3 +96,4 @@ extension HomeViewController {
         }
     }
 }
+

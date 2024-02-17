@@ -1,20 +1,27 @@
+//
+//  CertificateListResponseDTO.swift
+//  App
+//
+//  Created by 선민재 on 2/18/24.
+//
+
 import Foundation
 
-struct JobListResponseDTO: Decodable {
+struct CertificateListResponseDTO: Decodable {
     let id: Int
     let title: String
     let content: String
     let specialNote: String
-    let tag: [String]
+    let url: String
     let urls: [String]
-    
-    var toDomain: JobListEntity {
-        return JobListEntity(
+
+    var toDomain: CertificateListEntity {
+        return CertificateListEntity(
             id: id,
             title: title,
             content: content,
             specialNote: specialNote,
-            tag: tag,
+            url: url,
             urls: urls
         )
     }
