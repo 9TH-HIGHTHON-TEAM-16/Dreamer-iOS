@@ -18,18 +18,38 @@ final class IntroViewController: UIViewController {
     
     private let appTextLabel = UILabel().then {
         $0.text = "드러머"
-        $0.textColor = .mainColor
-        $0.font = .pretendard(.semibold(size: 44))
+        $0.textColor = AppAsset.mainColor.color
+        $0.font = AppFontFamily.Pretendard.semiBold.font(size: 44)
     }
     
     private let appExplainTextLabel = UILabel().then {
         $0.text = "꿈을 꾸는 사람들을 위해"
-        $0.textColor = .gray5
-        $0.font = .pretendard(.medium(size: 24))
+        $0.textColor = AppAsset.gray5.color
+        $0.font = AppFontFamily.Pretendard.medium.font(size: 24)
+    }
+    
+    private let startButton = UIButton().then {
+        $0.setTitle("시작하기", for: .normal)
+        $0.backgroundColor = AppAsset.mainColor.color
+        $0.titleLabel?.font = AppFontFamily.Pretendard.semiBold.font(size: 16)
+        $0.layer.cornerRadius = 8
+    }
+    
+    private let alreadyHaveAccountLabel = UILabel().then {
+        $0.text = "이미 계정이 있나요?"
+        $0.textColor = AppAsset.black.color
+        $0.font = AppFontFamily.Pretendard.medium.font(size: 16)
+    }
+    
+    private let loginButton = UnderLineButton(underLineColor: .mainColor ?? .purple).then {
+        $0.setTitle("로그인", for: .normal)
+        $0.setTitleColor(AppAsset.mainColor.color, for: .normal)
+        $0.titleLabel?.font = AppFontFamily.Pretendard.semiBold.font(size: 16)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .white
         self.addSubviews()
         self.setLayout()
     }
@@ -40,7 +60,10 @@ extension IntroViewController {
         [
             introLogo,
             appTextLabel,
-            appExplainTextLabel
+            appExplainTextLabel,
+            startButton,
+            alreadyHaveAccountLabel,
+            loginButton
         ].forEach {
             view.addSubview($0)
         }
@@ -58,6 +81,20 @@ extension IntroViewController {
         appExplainTextLabel.snp.makeConstraints {
             $0.top.equalTo(appTextLabel.snp.bottom).offset(8)
             $0.centerX.equalTo(appTextLabel.snp.centerX)
+        }
+        startButton.snp.makeConstraints {
+            $0.top.equalTo(appExplainTextLabel.snp.bottom).offset(227)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(46)
+            $0.centerX.equalTo(appTextLabel.snp.centerX)
+        }
+        alreadyHaveAccountLabel.snp.makeConstraints {
+            $0.top.equalTo(startButton.snp.bottom).offset(12)
+            $0.leading.equalToSuperview().offset(110)
+        }
+        loginButton.snp.makeConstraints {
+            $0.centerY.equalTo(alreadyHaveAccountLabel.snp.centerY)
+            $0.leading.equalTo(alreadyHaveAccountLabel.snp.trailing).offset(4)
         }
     }
 }
