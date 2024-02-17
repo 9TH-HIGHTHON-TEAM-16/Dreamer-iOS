@@ -1,15 +1,13 @@
 import UIKit
 
 public extension UIFont {
-    // swiftlint:disable identifier_name
     enum FontSystem: Fontable {
         case bold(size: CGFloat)
         case semibold(size: CGFloat)
         case medium(size: CGFloat)
     }
-    // swiftlint:enable identifier_name
 
-    static func pretendard(_ style: FontSystem, _ size: CGFloat) -> UIFont {
+    static func pretendard(_ style: FontSystem) -> UIFont {
         return style.font
     }
 }
