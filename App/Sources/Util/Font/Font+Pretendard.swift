@@ -16,11 +16,11 @@ public extension UIFont.FontSystem {
     var font: UIFont {
         switch self {
         case .bold(let size):
-            return UIFont(name: "Pretendard-Bold.otf", size: size) ?? .init()
+            return UIFont(name: "Pretendard-Bold", size: size) ?? .init()
         case .semibold(let size):
-            return UIFont(name: "Pretendard-Medium.otf", size: size) ?? .init()
+            return UIFont(name: "Pretendard-Medium", size: size) ?? .init()
         case .medium(let size):
-            return UIFont(name: "Pretendard-Semibold.otf", size: size) ?? .init()
+            return UIFont(name: "Pretendard-Semibold", size: size) ?? .init()
         }
     }
 }

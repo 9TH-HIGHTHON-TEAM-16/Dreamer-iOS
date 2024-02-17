@@ -13,6 +13,5 @@ final class IntroViewModel: BaseViewModel {
     struct Output {}
     
     func transform() {
-        <#code#>
     }
 }
