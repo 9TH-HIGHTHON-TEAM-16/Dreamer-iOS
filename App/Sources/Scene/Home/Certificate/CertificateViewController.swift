@@ -51,10 +51,9 @@ extension CertificateViewController {
                 cellIdentifier: EmploymentCollectionViewCell.cellIdentifier,
                 cellType: EmploymentCollectionViewCell.self
             )) { (ip, item, cell)  in
-                let url = URL(string: item.urls[ip])
                 
                 cell.employmentImage.kf.setImage(
-                    with: url,
+                    with: URL(string: item.url),
                     placeholder: UIImage(named: "DummyImage")
                 )
                 
@@ -68,10 +67,9 @@ extension CertificateViewController {
                 cellIdentifier: EmploymentCollectionViewCell.cellIdentifier,
                 cellType: EmploymentCollectionViewCell.self
             )) { (ip, item, cell)  in
-                let url = URL(string: item.urls[ip])
                 
                 cell.employmentImage.kf.setImage(
-                    with: url,
+                    with: URL(string: item.url),
                     placeholder: UIImage(named: "DummyImage")
                 )
                 
@@ -80,22 +78,6 @@ extension CertificateViewController {
             }
             .disposed(by: disposeBag)
         
-        output.certificateList
-            .bind(to: thirdView.employmentCollectionView.rx.items(
-                cellIdentifier: EmploymentCollectionViewCell.cellIdentifier,
-                cellType: EmploymentCollectionViewCell.self
-            )) { (ip, item, cell)  in
-                let url = URL(string: item.urls[ip])
-                
-                cell.employmentImage.kf.setImage(
-                    with: url,
-                    placeholder: UIImage(named: "DummyImage")
-                )
-                
-                cell.employmentTitle.text = item.title
-                cell.employmentSubTitle.text = item.content
-            }
-            .disposed(by: disposeBag)
         
     }
 }
@@ -119,14 +101,17 @@ extension CertificateViewController {
         }
         firstView.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom).offset(24)
+            $0.height.equalTo(220)
             $0.leading.trailing.equalToSuperview()
         }
         secondView.snp.makeConstraints {
             $0.top.equalTo(firstView.snp.bottom).offset(24)
+            $0.height.equalTo(220)
             $0.leading.trailing.equalToSuperview()
         }
         thirdView.snp.makeConstraints {
             $0.top.equalTo(secondView.snp.bottom).offset(24)
+            $0.height.equalTo(220)
             $0.leading.trailing.equalToSuperview()
         }
     }

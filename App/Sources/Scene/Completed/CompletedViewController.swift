@@ -60,6 +60,7 @@ final class CompletedViewController: UIViewController {
     
     init(psychology: String, type: String) {
         super.init(nibName: nil, bundle: nil)
+        self.resultTitle.text = "Highton님은 \n\(type) 유형입니다."
         self.resulExplainText.text = psychology
         self.resultText.text = "\(type) 유형"
     }

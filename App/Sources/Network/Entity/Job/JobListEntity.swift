@@ -10,6 +10,6 @@ struct JobListEntity: Decodable {
     let title: String
     let content: String
     let specialNote: String
-    let tag: [String]
+    let tags: [String]
     let urls: [String]
 }

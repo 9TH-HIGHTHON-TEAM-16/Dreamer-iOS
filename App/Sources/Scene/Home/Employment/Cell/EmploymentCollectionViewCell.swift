@@ -25,6 +25,7 @@ final class EmploymentCollectionViewCell: UICollectionViewCell {
     let employmentSubTitle = UILabel().then {
         $0.textColor = AppAsset.gray4.color
         $0.font = AppFontFamily.Pretendard.medium.font(size: 14)
+        $0.numberOfLines = 0
         $0.textAlignment = .left
     }
     
@@ -52,17 +53,18 @@ extension EmploymentCollectionViewCell {
     
     private func setLayout() {
         employmentImage.snp.makeConstraints {
-            $0.top.leading.equalToSuperview()
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().offset(16)
             $0.width.equalTo(147)
             $0.height.equalTo(110)
         }
         employmentTitle.snp.makeConstraints {
             $0.top.equalTo(employmentImage.snp.bottom).offset(8)
-            $0.leading.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().offset(16)
         }
         employmentSubTitle.snp.makeConstraints {
             $0.top.equalTo(employmentTitle.snp.bottom).offset(4)
-            $0.leading.equalToSuperview()
+            $0.leading.trailing.equalToSuperview().offset(16)
         }
     }
 }

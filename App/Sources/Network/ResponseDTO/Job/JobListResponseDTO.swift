@@ -5,7 +5,7 @@ struct JobListResponseDTO: Decodable {
     let title: String
     let content: String
     let specialNote: String
-    let tag: [String]
+    let tags: [String]
     let urls: [String]
     
     var toDomain: JobListEntity {
@@ -14,7 +14,7 @@ struct JobListResponseDTO: Decodable {
             title: title,
             content: content,
             specialNote: specialNote,
-            tag: tag,
+            tags: tags,
             urls: urls
         )
     }

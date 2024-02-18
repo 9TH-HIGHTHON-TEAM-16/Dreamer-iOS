@@ -51,9 +51,9 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         self.navigationController?.navigationBar.isHidden = true
         super.viewDidLoad()
+        self.viewModel.requestJobList(year: 1, role: "개발자", location: "서울특별시")
         self.bindViewModel()
         self.filterCollectionView.dataSource = self
-        self.viewModel.requestJobList(year: 1, role: "개발자", location: "서울특별시")
         self.addSubviews()
         self.setLayout()
     }
@@ -104,13 +104,14 @@ extension HomeViewController {
 
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return 10
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeFilterCell.cellIdentifier, for: indexPath) as? HomeFilterCell else { return UICollectionViewCell() }
-        cell.filterTitle.text = "지역"
-        cell.filterValue.text = "서울특별시"
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EmploymentCollectionViewCell.cellIdentifier, for: indexPath) as? EmploymentCollectionViewCell else { return UICollectionViewCell() }
+//        cell.employmentTitle.text = "지역"
+//        cell.employmentSubTitle.text = "서울특별시"
+//        
         return cell
     }
 }
@@ -138,10 +139,12 @@ extension HomeViewController {
         }
         firstView.snp.makeConstraints {
             $0.top.equalTo(filterCollectionView.snp.bottom).offset(24)
+            $0.height.equalTo(220)
             $0.leading.trailing.equalToSuperview()
         }
         secondView.snp.makeConstraints {
             $0.top.equalTo(firstView.snp.bottom).offset(24)
+            $0.height.equalTo(220)
             $0.leading.trailing.equalToSuperview()
         }
     }
