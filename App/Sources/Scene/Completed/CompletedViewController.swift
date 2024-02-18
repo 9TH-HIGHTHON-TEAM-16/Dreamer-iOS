@@ -41,7 +41,7 @@ final class CompletedViewController: UIViewController {
         $0.textAlignment = .left
     }
     
-    private let reusltExplainButton = UIButton().then {
+    private let reusltExplainButton = UIButton(type: .system).then {
         $0.setTitle("확인", for: .normal)
         $0.setTitleColor(AppAsset.white.color, for: .normal)
         $0.titleLabel?.font = AppFontFamily.Pretendard.semiBold.font(size: 16)
@@ -82,7 +82,9 @@ extension CompletedViewController {
             .withUnretained(self)
             .bind { (self, _ ) in
                 let vc = MainTabBarController()
-                self.navigationController?.pushViewController(vc, animated: true)
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true)
+//                self.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
     }
