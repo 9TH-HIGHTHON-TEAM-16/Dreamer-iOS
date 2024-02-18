@@ -12,6 +12,7 @@ import RxSwift
 import RxCocoa
 
 final class IntroViewController: UIViewController {
+    private var disposeBag: DisposeBag = .init()
     private let introLogo = UIImageView().then {
         $0.image = UIImage(named: "PurpleLogo")
     }
@@ -28,8 +29,9 @@ final class IntroViewController: UIViewController {
         $0.font = AppFontFamily.Pretendard.medium.font(size: 24)
     }
     
-    private let startButton = UIButton().then {
+    private let startButton = UIButton(type: .system).then {
         $0.setTitle("시작하기", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = AppAsset.mainColor.color
         $0.titleLabel?.font = AppFontFamily.Pretendard.semiBold.font(size: 16)
         $0.layer.cornerRadius = 8
@@ -52,6 +54,11 @@ final class IntroViewController: UIViewController {
         self.view.backgroundColor = .white
         self.addSubviews()
         self.setLayout()
+
+        startButton.rx.tap
+            .subscribe(onNext: {
+                self.navigationController?.pushViewController(NewUserViewController(), animated: true)
+            }).disposed(by: disposeBag)
     }
 }
 

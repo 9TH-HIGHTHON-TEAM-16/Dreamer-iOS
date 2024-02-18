@@ -61,6 +61,14 @@ class NewUserViewController: BaseViewController {
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
+
+        finishButton.rx.tap
+            .subscribe(onNext: { [self] in
+                let next = AuthenticationViewController()
+                next.email = emailTextFieldView.textField.text ?? ""
+                next.pw = pwTextFieldView.textField.text ?? ""
+                self.navigationController?.pushViewController(next, animated: true)
+            }).disposed(by: disposeBag)
     }
 
     override func setLayout() {

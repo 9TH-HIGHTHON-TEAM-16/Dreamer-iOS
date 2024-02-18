@@ -3,8 +3,11 @@ import SnapKit
 import Then
 import RxSwift
 import RxCocoa
+import Alamofire
 
 class AuthenticationViewController: BaseViewController {
+    var email = ""
+    var pw = ""
     private let titleLabel = UILabel().then {
         $0.text = "신원 확인을 위해 본인 인증을 진행해주세요."
         $0.font = AppFontFamily.Pretendard.bold.font(size: 24)
@@ -89,6 +92,9 @@ class AuthenticationViewController: BaseViewController {
             name: UIResponder.keyboardWillHideNotification,
             object: nil
         )
+    }
+
+    override func bind() {
         birthTextField.rx.text.orEmpty
             .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { text in
@@ -109,6 +115,43 @@ class AuthenticationViewController: BaseViewController {
                 }
             })
             .disposed(by: disposeBag)
+        finishButton.rx.tap
+            .subscribe(onNext: { [self] in
+                let url = "http://13.124.238.120:8080/auth/sign-up"
+                var request = URLRequest(url: URL(string: url)!)
+                request.httpMethod = "POST"
+                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                
+                // POST 로 보낼 정보
+                let params: Parameters = [
+                    "email": email,
+                    "password": pw,
+                    "name": "\(nameTextFieldView.textField.text!)",
+                    "number": "",
+                    "residentNumber": "\(birthTextField.text!)-\(genderTextField.text!)"
+                ]
+                
+                // httpBody 에 parameters 추가
+                do {
+                    try request.httpBody = JSONSerialization.data(withJSONObject: params, options: [])
+                } catch {
+                    print("http Body Error")
+                }
+                
+                
+                AF.request(request).response { (response) in
+                    switch response.result {
+                    case .success:
+                        debugPrint(response)
+                        let next = GoToNextViewController()
+                        next.modalPresentationStyle = .fullScreen
+                        self.present(next, animated: true, completion: nil)
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }).disposed(by: disposeBag)
     }
 
     override func setLayout() {

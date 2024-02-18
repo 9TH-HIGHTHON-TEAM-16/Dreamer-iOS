@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "HighFive.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
