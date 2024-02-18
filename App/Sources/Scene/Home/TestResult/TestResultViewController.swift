@@ -52,7 +52,17 @@ final class TestResultViewController: UIViewController {
     private let backButton = UIButton().then {
         $0.setImage(UIImage(named: "BackButton"), for: .normal)
     }
-
+    
+    init(psychology: String, type: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.resulExplainText.text = psychology
+        self.resultText.text = "\(type) 유형"
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         self.navigationController?.navigationBar.isHidden = true
         super.viewDidLoad()

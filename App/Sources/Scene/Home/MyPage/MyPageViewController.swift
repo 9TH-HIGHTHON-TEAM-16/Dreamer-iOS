@@ -15,6 +15,9 @@ import Kingfisher
 final class MyPageViewController: UIViewController {
     private var disposeBag = DisposeBag()
     private let navigationBar = HomeNavigationBar(navigationBarTitle: "마이")
+    private let viewModel: MyPageViewModel
+    private var text1: String = ""
+    private var text2: String = ""
     
     private let userNameLabel = UILabel().then {
         $0.text = "Highton"
@@ -47,10 +50,20 @@ final class MyPageViewController: UIViewController {
         $0.backgroundColor = AppAsset.gray2.color
         $0.layer.cornerRadius = 8
     }
-
+    
+    init(with viewModel: MyPageViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         self.navigationController?.navigationBar.isHidden = true
         super.viewDidLoad()
+        self.viewModel.requestUserInfo()
         self.bindAction()
         self.addSubviews()
         self.setLayout()
@@ -61,10 +74,24 @@ extension MyPageViewController {
     private func bindAction() {
         showTestResultButton.rx.tap
             .bind {
-                let vc = TestResultViewController()
+                let vc = TestResultViewController(psychology: self.text1, type: self.text2)
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             .disposed(by: disposeBag)
+        
+        let input = MyPageViewModel.Input()
+        
+        let output = viewModel.transform(input: input)
+        
+        output.userInfo
+            .withUnretained(self)
+            .bind { (self, userInfo) in
+                self.userNameLabel.text = userInfo.name
+                self.text1 = userInfo.psychology
+                self.text2 = userInfo.type
+            }
+            .disposed(by: disposeBag)
+        
     }
 }
 

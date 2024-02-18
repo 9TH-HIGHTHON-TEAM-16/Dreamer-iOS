@@ -77,7 +77,8 @@ final class MainTabBarController: UITabBarController {
                 let viewModel = PolicyViewModel()
                 return UINavigationController(rootViewController: PolicyViewController(with: viewModel))
             case .myPage:
-                return UINavigationController(rootViewController: MyPageViewController())
+                let viewModel = MyPageViewModel()
+                return UINavigationController(rootViewController: MyPageViewController(with: viewModel))
             }
         }
     }

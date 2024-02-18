@@ -58,6 +58,16 @@ final class CompletedViewController: UIViewController {
         self.setLayout()
     }
     
+    init(psychology: String, type: String) {
+        super.init(nibName: nil, bundle: nil)
+        self.resulExplainText.text = psychology
+        self.resultText.text = "\(type) 유형"
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override var hidesBottomBarWhenPushed: Bool {
         get { return true }
         set { super.hidesBottomBarWhenPushed = newValue }
