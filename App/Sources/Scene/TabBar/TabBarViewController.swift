@@ -71,8 +71,8 @@ final class MainTabBarController: UITabBarController {
                 let viewModel = HomeViewModel()
                 return UINavigationController(rootViewController: HomeViewController(with: viewModel))
             case .certificate:
-                let viewModel = HomeViewModel()
-                return UINavigationController(rootViewController: HomeViewController(with: viewModel))
+                let viewModel = CertificateViewModel()
+                return UINavigationController(rootViewController: CertificateViewController(with: viewModel))
             case .policy:
                 let viewModel = PolicyViewModel()
                 return UINavigationController(rootViewController: PolicyViewController(with: viewModel))

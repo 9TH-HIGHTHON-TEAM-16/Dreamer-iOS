@@ -13,7 +13,7 @@ import RxCocoa
 import Kingfisher
 
 final class CertificateViewController: UIViewController {
-    private let navigationBar = HomeNavigationBar(navigationBarTitle: "채용")
+    private let navigationBar = HomeNavigationBar(navigationBarTitle: "자격증")
     private var viewModel: CertificateViewModel
     private var disposeBag = DisposeBag()
 

@@ -13,7 +13,7 @@ import RxCocoa
 import Kingfisher
 
 final class PolicyViewController: UIViewController {
-    private let navigationBar = HomeNavigationBar(navigationBarTitle: "채용")
+    private let navigationBar = HomeNavigationBar(navigationBarTitle: "관련제도")
     private var viewModel: PolicyViewModel
     private var disposeBag = DisposeBag()
 

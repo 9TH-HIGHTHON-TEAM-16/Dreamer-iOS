@@ -13,6 +13,7 @@ import RxCocoa
 import Kingfisher
 
 final class MyPageViewController: UIViewController {
+    private var disposeBag = DisposeBag()
     private let navigationBar = HomeNavigationBar(navigationBarTitle: "마이")
     
     private let userNameLabel = UILabel().then {
@@ -50,8 +51,20 @@ final class MyPageViewController: UIViewController {
     override func viewDidLoad() {
         self.navigationController?.navigationBar.isHidden = true
         super.viewDidLoad()
+        self.bindAction()
         self.addSubviews()
         self.setLayout()
+    }
+}
+
+extension MyPageViewController {
+    private func bindAction() {
+        showTestResultButton.rx.tap
+            .bind {
+                let vc = TestResultViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -73,7 +86,6 @@ extension MyPageViewController {
         navigationBar.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(52)
         }
         userImage.snp.makeConstraints {
             $0.top.equalTo(navigationBar.snp.bottom).offset(24)
