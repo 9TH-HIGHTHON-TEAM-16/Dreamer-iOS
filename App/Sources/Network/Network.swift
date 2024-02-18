@@ -81,4 +81,56 @@ final class NetworkManager {
             }
         }
     }
+    
+    static func requestUser(
+        number: Int,
+        completionHandler: @escaping (Bool, UserEntity?) -> Void
+    ) {
+        
+        let param: [String: Any] = ["number": number]
+        
+        MoyaProvider<UserService>().request(.user(param: param)) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let _ = try response.filterSuccessfulStatusCodes()
+                    
+                    let responseDTO = try response.map(DefaultResponseDTO<UserResponseDTO>.self, using: JSONDecoder())
+                    
+                    completionHandler(true, responseDTO.data.toDomain)
+                }
+                catch(let error) {
+                    print("ERROR \(error)")
+                }
+            case let .failure(error):
+                print("error is \(error.localizedDescription)")
+                completionHandler(false, nil)
+            }
+        }
+    }
+    
+    static func requestUserInfo(
+        completionHandler: @escaping (Bool, UserInfoEntity?) -> Void
+    ) {
+                
+        MoyaProvider<UserService>().request(.userInfo) { result in
+            switch result {
+            case let .success(response):
+                do {
+                    let _ = try response.filterSuccessfulStatusCodes()
+                    
+                    let responseDTO = try response.map(DefaultResponseDTO<UserInfoResponseDTO>.self, using: JSONDecoder())
+                    
+                    completionHandler(true, responseDTO.data.toDomain)
+                }
+                catch(let error) {
+                    print("ERROR \(error)")
+                }
+            case let .failure(error):
+                print("error is \(error.localizedDescription)")
+                completionHandler(false, nil)
+            }
+        }
+    }
+
 }

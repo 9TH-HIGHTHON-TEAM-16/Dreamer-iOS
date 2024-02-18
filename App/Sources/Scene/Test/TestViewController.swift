@@ -95,8 +95,10 @@ extension TestViewController {
     
     private func changeQuestion() {
         guard index != viewModel.questionList.count else {
-            let vc = CompletedViewController()
-            self.navigationController?.setViewControllers([vc], animated: true)
+            NetworkManager.requestUser(number: yes) { isSuccess, user in
+                let vc = CompletedViewController(psychology: user?.psychology ?? "", type: user?.type ?? "")
+                self.navigationController?.setViewControllers([vc], animated: true)
+            }
             return
         }
         
