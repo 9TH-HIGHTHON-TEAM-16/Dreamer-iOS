@@ -59,6 +59,10 @@ final class IntroViewController: UIViewController {
             .subscribe(onNext: {
                 self.navigationController?.pushViewController(NewUserViewController(), animated: true)
             }).disposed(by: disposeBag)
+        loginButton.rx.tap
+            .subscribe(onNext: {
+                self.navigationController?.pushViewController(SignInViewController(), animated: true)
+            }).disposed(by: disposeBag)
     }
 }
 

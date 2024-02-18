@@ -1,6 +1,8 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 class GoToNextViewController: BaseViewController {
     private let titleLabel = UILabel().then {
@@ -29,6 +31,15 @@ class GoToNextViewController: BaseViewController {
         ].forEach {
             self.view.addSubview($0)
         }
+    }
+
+    override func configureVC() {
+        goToNextButton.rx.tap
+            .subscribe(onNext: {
+                let survey = TestViewController(with: TestViewModel())
+                survey.modalPresentationStyle = .fullScreen
+                self.present(survey, animated: true)
+            }).disposed(by: disposeBag)
     }
 
     override func setLayout() {

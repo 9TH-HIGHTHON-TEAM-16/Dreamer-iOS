@@ -105,6 +105,7 @@ class AuthenticationViewController: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        
         genderTextField.rx.text.orEmpty
             .observe(on: MainScheduler.asyncInstance)
             .subscribe(onNext: { text in
@@ -198,7 +199,7 @@ class AuthenticationViewController: BaseViewController {
     }
 }
 
-extension AuthenticationViewController {
+extension AuthenticationViewController: UITextFieldDelegate {
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
             let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {

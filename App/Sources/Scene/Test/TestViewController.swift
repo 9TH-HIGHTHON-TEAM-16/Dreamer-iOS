@@ -17,8 +17,9 @@ final class TestViewController: UIViewController {
     private var index: Int = 0
     private var yes: Int = 0
     
-    private let backButton = UIButton().then {
+    private let backButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "BackButton"), for: .normal)
+        $0.tintColor = AppAsset.black.color
     }
     
     private let questionValueLabel = UILabel().then {
@@ -28,7 +29,7 @@ final class TestViewController: UIViewController {
         $0.numberOfLines = 2
     }
     
-    private let yesButton = UIButton().then {
+    private let yesButton = UIButton(type: .system).then {
         $0.setTitle("네", for: .normal)
         $0.setTitleColor(AppAsset.gray7.color, for: .normal)
         $0.titleLabel?.font = AppFontFamily.Pretendard.semiBold.font(size: 16)
@@ -36,7 +37,7 @@ final class TestViewController: UIViewController {
         $0.layer.cornerRadius = 8
     }
     
-    private let noButton = UIButton().then {
+    private let noButton = UIButton(type: .system).then {
         $0.setTitle("아니요", for: .normal)
         $0.setTitleColor(AppAsset.gray7.color, for: .normal)
         $0.titleLabel?.font = AppFontFamily.Pretendard.semiBold.font(size: 16)
