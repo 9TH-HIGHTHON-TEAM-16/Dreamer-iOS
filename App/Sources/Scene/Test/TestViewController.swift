@@ -95,7 +95,8 @@ extension TestViewController {
     
     private func changeQuestion() {
         guard index != viewModel.questionList.count else {
-            self.navigationController?.popViewController(animated: true)
+            let vc = CompletedViewController()
+            self.navigationController?.setViewControllers([vc], animated: true)
             return
         }
         
