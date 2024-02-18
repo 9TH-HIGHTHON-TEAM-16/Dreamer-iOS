@@ -49,6 +49,10 @@ extension UserService: TargetType {
     }
 
     var headers: [String: String]? {
-        return nil
+        print(UserDefaults.standard.value(forKey: "access_token"))
+        return [
+            "Authorization": "Bearer \(UserDefaults.standard.string(forKey: "access_token"))",
+            "Content-Type": "application/json"
+        ]
     }
 }
